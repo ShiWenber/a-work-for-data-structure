@@ -12,6 +12,6 @@ ports:
 
 vscode:
   extensions:
-    - /workspace/a-work-for-data-structure/swb/ms-vscode.cpptools-1.7.1.vsix
+    # - /workspace/a-work-for-data-structure/swb/ms-vscode.cpptools-1.7.1.vsix
     # - ms-vscode.cpptools这是一个C/C++的依赖，因为线上平台没有提供，因此gitpod上无法从插件中找到，需要手动安装vsix，该插件包路径.\swb\ms-vscode.cpptools-1.7.1.vsix
     - formulahendry.code-runner
