@@ -28,7 +28,7 @@ void narrate();                      /*说明函数*/          //swb 把图打�
 void ShortestPath(int num);          /*最短路径函数*/      //th  
 void output(int sight1, int sight2); /*输出函数*/          //swb
 char Menu();                         /* 主菜单 */          //swb
-void search();                       /* 查询建筑信息 */    //介绍建筑信息 hyt
+void search();                       /* 查询建筑信息 */    //介绍建筑信息 swb
 char SearchMenu();                   /* 查询子菜单 */          //swb
 void HaMiTonian(int);                /* 哈密尔顿图的遍历 */    //kyw
 void NextValue(int);                  
