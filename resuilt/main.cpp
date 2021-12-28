@@ -4,7 +4,7 @@
 #include "malloc.h"
 #include "stdlib.h"
 #define Max 20000
-#define NUM 9
+#define NUM 10
 typedef struct ArcCell
 {
     int adj; /* 相邻接的建筑之间的路程 */
