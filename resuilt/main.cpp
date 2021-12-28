@@ -4,7 +4,7 @@
 #include "malloc.h"
 #include "stdlib.h"
 #define Max 20000
-#define NUM 10
+#define NUM 10   // 地点个数   //原框架为#define NUM 9
 typedef struct ArcCell
 {
     int adj; /* 相邻接的建筑之间的路程 */
@@ -24,7 +24,7 @@ typedef struct
 MGraph G;                   /* 把图定义为全局变量 */
 int P[NUM][NUM];            /* */
 long int D[NUM];            /* 辅助变量存储最短路径长度 */
-int x[9] = {0};
+int x[NUM] = {0};              //原框架为int x[9] = {0}; 
 void CreateUDN(int v, int a);        /* 造图函数 */
 void narrate();                      /*说明函数*/
 void ShortestPath(int num);          /*最短路径函数*/
