@@ -20,6 +20,13 @@ README.md是说明文档，用来做文档记录和说明撰写,README.assets是
  A地点 --[距离]--> B地点 --[距离]--> C地点
  输出样例：力行楼 --400--> 格物楼 --900-->中山邦翰楼
 
+### 由这10个地点构成的图
+![校园导航联通图](README.assets/校园导航联通图.png)
+
+对应的邻接矩阵:
+
+
+
 
 # 分工
 ```c++
@@ -31,10 +38,11 @@ char Menu();                         /* 主菜单 */          //swb
 void search();                       /* 查询建筑信息 */    //介绍建筑信息 swb
 char SearchMenu();                   /* 查询子菜单 */          //swb
 void HaMiTonian(int);                /* 哈密尔顿图的遍历 */    //kyw
-void NextValue(int);                  
+void NextValue(int);                                          //kyw
 void display();                      /* 显示遍历结果 */        //kyw
 ```
 
+# 存入图中的数据：
 
 
 
