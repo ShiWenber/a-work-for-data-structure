@@ -1,6 +1,9 @@
 文件说明：
+
 hyt, swb , th , kyw 是四个人分别的代码上传区，resuilt 是最后拼合的代码。
+
 .gitpod.yml是gitpod的在线编辑器配置文件，.vscode也是在线编辑器的配置文件，不用管。
+
 README.md是说明文档，用来做文档记录和说明撰写,README.assets是存储README中图片的文件夹。
 
 
