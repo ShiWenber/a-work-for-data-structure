@@ -1,0 +1,15 @@
+
+tasks:
+  - name: terminal1
+    init: echo 'init script' # runs during prebuild
+    command: echo 'start script'
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 3000
+    onOpen: open-preview
+
+vscode:
+  extensions:
+    - ms-vscode.cpptools
+    - formulahendry.code-runner
