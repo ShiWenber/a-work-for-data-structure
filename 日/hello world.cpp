@@ -4,7 +4,8 @@
 */
 # include<stdio.h>
 # include<stdlib.h>
-bool finish(bool *S,int n)          //是否完成 找寻 
+
+bool finish(bool *S,int n)          //检查该顶点是否已经纳入S[] 
 {
     for(int i=0;i<n;i++)
     {
@@ -23,13 +24,13 @@ void ShortestPath(int num)//num为起点（V0）的编号
     for(int i=0;i<NUM;i++)
     D[i]=P[num][i];
     D[num]=0;
-    //初始化已访问数集S;
+    //初始化已访问数集S
     bool S[NUM];
 
     for(int i=0;i<NUM;i++)
     S[i]=false;
 
-    S[t]=true;
+    S[num]=true;
 
     int j;
     int min;
@@ -38,7 +39,7 @@ void ShortestPath(int num)//num为起点（V0）的编号
     {   j=0;
         min=MAX;
 
-        for(int i=0;i<NUM;i++)        //寻找最短路径 
+        for(int i=0;i<NUM;i++)        //比较各个路径，取最短路径结点纳入S 
         {
             if(S[i]) continue;
 
@@ -46,9 +47,9 @@ void ShortestPath(int num)//num为起点（V0）的编号
             {min=D[i];j=i;}     
         }   
 
-        S[j]=true;      //将j纳入点集S中 
+        S[j]=true;      //纳入当前结点 
 
-        for(int i=0;i<NUM;i++)        //更新当前最短路径
+        for(int i=0;i<NUM;i++)        //更新当前最短路径 
         {
             if(S[i]) continue;
             if(D[i]>D[j]+P[j][i])
@@ -59,6 +60,13 @@ void ShortestPath(int num)//num为起点（V0）的编号
     }
 
 }
+
+void output(int sight1,int sight2){    /*输出两点间的最短路径*/
+    
+	
+	printf("%d->%d最短路径为%ld",sight1,sight2,D[sight2]);
+
+} 
 
 int main(){
     printf("hello world");
