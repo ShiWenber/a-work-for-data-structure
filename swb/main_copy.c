@@ -32,8 +32,8 @@ void output(int sight1, int sight2); /*输出函数*/
 char Menu();                         /* 主菜单 */
 void search();                       /* 查询建筑信息 */
 char SearchMenu();                   /* 查询子菜单 */
-void HaMiTonian(int);                /* 哈密尔顿图的遍历 */
-void NextValue(int);
+void HaMiTonian(int input);                /* 哈密尔顿图的遍历 */
+void NextValue(int input);
 void display(); /* 显示遍历结果 */
 
 
@@ -108,3 +108,62 @@ char Menu() /* 主菜单 */
     } while (flag);
     return c;
 }
+
+
+ /* 造图函数 */
+void CreateUDN(int v, int a)
+{
+    printf("CreateUDN\n");
+}
+ /*说明函数*/ 
+void narrate()
+{
+    printf("narrate\n");
+}   
+/*最短路径函数*/                  
+void ShortestPath(int num)
+{
+    printf("ShortestPath\n");
+} 
+
+
+ /*输出函数*/       
+void output(int sight1, int sight2)
+{
+    printf("output\n");
+}
+
+
+  /* 主菜单 */
+// char Menu()
+// {
+//     printf("Menu\n");
+//     return 'a';
+// }       
+
+
+ /* 查询建筑信息 */         
+void search()
+{
+    printf("Menu\n");
+}         
+  /* 查询子菜单 */                
+char SearchMenu()
+{
+    printf("SearchMenu\n");
+    return 'a';
+}       
+  /* 哈密尔顿图的遍历 */             
+void HaMiTonian(int input)
+{
+    printf("HaMiTonian\n");
+}               
+void NextValue(int input)
+{
+    printf("NextValue\n");
+}       
+/* 显示遍历结果 */
+void display()
+{
+    printf("display\n");
+}       
