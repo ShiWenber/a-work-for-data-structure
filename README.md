@@ -1,4 +1,4 @@
-# 文件说明
+# README
 
 ## 环境
 
@@ -15,6 +15,8 @@
 - 运行环境:WINDOWS操作系统
 
 由于线上编辑器使用的是linux环境，因此可以直接作为linux版本，但是转到windows平台上的时候需要将fgets换为gets
+
+## 文件说明
 
 hyt, swb , th , kyw 是四个人分别的代码上传区，resuilt 是最后拼合的代码。
 
