@@ -48,7 +48,21 @@ int main()     /* 主函数 */
     int v0, v1;
     char ck;
     system("color fc");
-    CreateUDN(NUM, 11);
+    //初始化
+     do
+    {
+        ck = Menu_Create();
+        switch (ck)
+        {
+        case '1':
+           
+        case '2':
+            search();
+            break;
+        };
+    } while (ck != 'e');
+    //初始化完毕
+    CreateUDN(); //原有框架为CreateUDN(NUM, 11);
     do
     {
         ck = Menu();
@@ -70,17 +84,53 @@ int main()     /* 主函数 */
         case '2':
             search();
             break;
-        case '3':
-            system("cls");
-            narrate();
-            x[0] = 1;
-            HaMiTonian(1);
-            printf("\n\n\t\t\t\t 请按任意键继续...\n");
-            getchar();
-            getchar();
-            break;
         };
     } while (ck != 'e');
+}
+
+char Menu_Create()/*初始化菜单*/
+{
+      char c;
+    int flag;
+    do
+    {
+        flag = 1;
+        system("cls");
+        narrate();
+        printf("__   ___   _ _   _     _   _             _             _   _             \n");
+        printf("\\ \\ / / \\ | | | | |   | \\ | | __ ___   _(_) __ _  __ _| |_(_) ___  _ __  \n");
+        printf(" \\ V /|  \\| | | | |   |  \\| |/ _` \\ \\ / / |/ _` |/ _` | __| |/ _ \\| '_ \\ \n");
+        printf("  | | | |\\  | |_| |   | |\\  | (_| |\\ V /| | (_| | (_| | |_| | (_) | | | |\n");
+        printf("  |_| |_| \\_|\\___/    |_| \\_|\\__,_| \\_/ |_|\\__, |\\__,_|\\__|_|\\___/|_| |_|\n");
+        printf("                                           |___/                         \n");
+                                                    
+        ///////////////////////////////////////////////////原框架
+        // printf("\n\t\t\t┏━━━━━━━━━━━━━━━━━━━━━━┑\n");
+        // printf(  "\t\t\t┃                      ┃\n");
+        // printf(  "\t\t\t┃ 1、查询建筑路径       ┃\n");
+        // printf(  "\t\t\t┃ 2、查询建筑信息       ┃\n");
+        // printf(  "\t\t\t┃ 3、选择出发点和目的地  ┃\n");
+        // printf(  "\t\t\t┃ e、退出               ┃\n");
+        // printf(  "\t\t\t┃                      ┃\n");
+        // printf(  "\t\t\t┗━━━━━━━━━━━━━━━━━━━━━━┛\n");
+        // printf(  "\t\t\t\t 请输入您的选择：");
+        //////////////////////////////////////////////////原框架
+        printf("\n\t\t\t .━━━━━━━━━━━━━━━━━━━━━━━━━━━. \n");
+        printf(  "\t\t\t┃ .-------------------------. ┃\n");
+        printf(  "\t\t\t┃ |                         | ┃\n");
+        printf(  "\t\t\t┃ |   1.查询建筑路径         | ┃\n");
+        printf(  "\t\t\t┃ |   2.查询建筑信息         | ┃\n");
+        printf(  "\t\t\t┃ |   3.选择出发点和目的地   | ┃\n");
+        printf(  "\t\t\t┃ |   e.退出                | ┃\n");
+        printf(  "\t\t\t┃ |                         | ┃\n");
+        printf(  "\t\t\t┃ '-------------------------' ┃\n");
+        printf(  "\t\t\t '━━━━━━━━━━━━━━━━━━━━━━━━━━━' \n");
+        printf(  "\t\t\t\t 请输入您的选择：");
+        scanf("%c", &c);
+        if (c == '1' || c == '2' || c == '3' || c == 'e')
+            flag = 0;
+    } while (flag);
+    return c;
 }
 
 
