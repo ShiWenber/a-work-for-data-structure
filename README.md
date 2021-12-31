@@ -1,5 +1,21 @@
 # 文件说明
 
+## 环境
+
+- 硬件环境：gitpod提供的服务器
+
+- 操作系统：Ubantu 20.04 64位
+  
+  ![environmentOS](README.assets/env_OS.png)
+
+- 开发工具：VSCode（gitpod服务器自带）
+  
+  ![VScode](README.assets/VScode.png)
+
+- 运行环境:WINDOWS操作系统
+
+由于线上编辑器使用的是linux环境，因此可以直接作为linux版本，但是转到windows平台上的时候需要将fgets换为gets
+
 hyt, swb , th , kyw 是四个人分别的代码上传区，resuilt 是最后拼合的代码。
 
 .gitpod.yml是gitpod的在线编辑器配置文件，.vscode也是在线编辑器的配置文件，不用管。
