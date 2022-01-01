@@ -12,7 +12,7 @@
 #define NUM 10	 // 地点个数   //原框架为#define NUM 9
 int P[NUM][NUM]; /*存图的全局邻接矩阵*/
 
-void CreateUDN(char *inputCSVfile) //inputCSVfile表示输入的CSV文件的路径，全局变量P[][]存储输出的邻接矩阵,v顶点数能从文件中读出，a边数也能从文件中读出
+int CreateUDN(char *inputCSVfile) //inputCSVfile表示输入的CSV文件的路径，全局变量P[][]存储输出的邻接矩阵,v顶点数能从文件中读出，a边数也能从文件中读出
 {
 	int i, j;
 	int k = 0;
@@ -28,7 +28,7 @@ void CreateUDN(char *inputCSVfile) //inputCSVfile表示输入的CSV文件的路�
 	{
 		printf("File cannot open! ");
 		//exit;
-		return;
+		return 0;
 	}
 
 	while (!feof(fp)) //读文件，直到文件末尾
@@ -48,11 +48,11 @@ void CreateUDN(char *inputCSVfile) //inputCSVfile表示输入的CSV文件的路�
 		{
 			if (j == sum_row - 1) //读到最后一个数字时改变读取方式，不加上，
 			{
-				fscanf(fp1, "%d", &P[i][j]);
+				fscanf(fp1, "%d", &P[i][j]);   if (P[i][j] == -1){ P[i][j] = Max;}//用Max代表无穷大 
 				k++;
 				break;
 			}
-			fscanf(fp1, "%d,", &P[i][j]); //将文件其中一行内容保存到数组中
+			fscanf(fp1, "%d,", &P[i][j]); if (P[i][j] == -1){ P[i][j] = Max;}//用Max代表无穷大  
 			k++;						  //记录已存的数字个数
 		}
 	}
@@ -61,26 +61,34 @@ void CreateUDN(char *inputCSVfile) //inputCSVfile表示输入的CSV文件的路�
 	{
 		for (j = 0; j < sum_row; j++)
 		{
+			if(P[i][j] == Max )
+			{
+				printf("---\t"); //邻接矩阵中用Max表示未连通，在用户显示中显示为---
+			}else
 			printf("%d\t", P[i][j]); //打印
 		}
 		printf("\n");
 	}
 	fclose(fp);	 //关闭文件，释放指向文件的指针
 	fclose(fp1); //关闭文件，释放指向文件的指针
-	return;
+	return 1;
 }
 
-int main()
-{
-	char * inputCSVfile = (char*)malloc(200*sizeof(char));
-	fgets(inputCSVfile,200 , stdin);   //输入的文件路径长度限为200个字符，超过就会报错（linux环境下gcc不支持gets）
-	// fputs(inputCSVfile,stdout);     //输出写法
-	if(inputCSVfile[strlen(inputCSVfile) - 1] == '\n') //fgets取得的字符串末尾会含'\n',导致该路径字符串不可用，因此需要将其最后一个字符换为'\0'
-        inputCSVfile[strlen(inputCSVfile) - 1] = '\0' ;//
-	CreateUDN(inputCSVfile);
-	CreateUDN("./inputExamples/matrix.CSV");
-	return 0;
-}
+
+//测试用的main函数
+// int main()
+// {
+// 	char * inputCSVfile = (char*)malloc(200*sizeof(char));
+//  printf("输入存储邻接矩阵的CSV文件的地址：\n>");
+//  while((tempC = getchar()) != '\n' && tempC != EOF);           //清空stdin的输入缓存
+// 	fgets(inputCSVfile,200 , stdin);   //输入的文件路径长度限为200个字符，超过就会报错（linux环境下gcc不支持gets）
+// 	// fputs(inputCSVfile,stdout);     //输出写法
+// 	if(inputCSVfile[strlen(inputCSVfile) - 1] == '\n') //fgets取得的字符串末尾会含'\n',导致该路径字符串不可用，因此需要将其最后一个字符换为'\0'
+//         inputCSVfile[strlen(inputCSVfile) - 1] = '\0' ;//
+// 	CreateUDN(inputCSVfile);
+// 	CreateUDN("./inputExamples/matrix.CSV");
+// 	return 0;
+// }
 
 // int main(){
 //     printf("hello world\n");
