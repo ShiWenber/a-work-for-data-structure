@@ -68,10 +68,13 @@ int main()     /* 主函数 */
             case '1':
                 initialized = CreateUDN("./inputExamples/matrix.CSV"); //原有框架为CreateUDN(NUM, 11);
                 if(initialized)
+                {
                     printf("初始化成功\n");
+                    ck ='e';//设置退出该界面的标记
+                }
                 else
                     printf("初始化出错\n");
-                ck ='e';//设置退出该界面的标记
+              
                 break;
             case '2':
                 inputCSVfile = (char*)malloc(200*sizeof(char));
@@ -83,7 +86,10 @@ int main()     /* 主函数 */
                 inputCSVfile[strlen(inputCSVfile) - 1] = '\0' ;//
                 initialized = CreateUDN(inputCSVfile);
                 if(initialized)
+                {
                     printf("初始化成功\n");
+                    ck ='e';//设置退出该界面的标记
+                }
                 else
                     printf("初始化出错\n");
                 ck = 'e';//设置退出该界面的标记
