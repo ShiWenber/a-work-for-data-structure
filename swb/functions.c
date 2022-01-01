@@ -40,12 +40,27 @@ int CreateUDN(char *inputCSVfile) //inputCSVfile表示输入的CSV文件的路�
 	sum_row = count;				   //邻接矩阵总行数
 	printf("顶点个数为：%d", sum_row); //打印文件行数，因为每行只有一个数，所以即统计文件中有多少个数
 	printf("\n");
-
+	VertexType sites;
 	char temp;
 	for (i = 0; i < sum_row; i++) //控制行数
 	{
 		for (j = 0; j < sum_row; j++) //控制列数 //因为这里都是方阵就直接用2*sum_row-1来表示其最大列数，如果是','就不记录，如果是数字就记录
 		{
+			///////////////////////////读取第一行的字符，获得建筑物列表
+			if(i=0)
+			{
+				char * str = (char*)malloc(sizeof(char)*20);
+    			for(int i=0 ; i<sum_row ; i++){
+					if(i==2){
+						fscanf(fp1, "%d", Building[i].sight);
+						Building[i].sight; 
+					}else{
+						scanf("%[^,]%*c",str);
+					}
+					printf("\n%s",str);
+    			}
+			}
+			///////////////////////////////
 			if (j == sum_row - 1) //读到最后一个数字时改变读取方式，不加上，
 			{
 				fscanf(fp1, "%d", &G.arcs[i][j].adj);   if (G.arcs[i][j].adj == -1){ G.arcs[i][j].adj = Max;}//用Max代表无穷大 
