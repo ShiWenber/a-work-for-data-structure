@@ -4,21 +4,21 @@
 
 - 硬件环境：gitpod提供的服务器
 
-- 操作系统：Ubantu 20.04 64位
-  
-  ![environmentOS](README.assets/env_OS.png)
+- 操作系统：WINDOWS 64位
 
-- 开发工具：VSCode（gitpod服务器自带）
+- 开发工具：VSCode
   
   ![VScode](README.assets/VScode.png)
 
-- 运行环境:WINDOWS操作系统\LINUX操作系统
+- 运行环境:WINDOWS操作系统
 
-由于线上编辑器使用的是linux环境，因此可以直接作为linux版本，但是转到windows平台上的时候需要将fgets换为gets
+## 使用说明
 
-## 文件说明
+“./inputExamples/matrix.CSV”这是初始化图的默认路径，用户可以用excel打开路径下的CSV文件对图进行修改，其中没有连接的两个地点距离用-1，连接的两个地点填距离
 
-hyt, swb , th , kyw 是四个人分别的代码上传区，resuilt 是最后拼合的代码。
+## 开发说明
+
+swb , th , kyw 是四个人分别的代码上传区，resuilt 是最后拼合的代码。
 
 .gitpod.yml是gitpod的在线编辑器配置文件，.vscode也是在线编辑器的配置文件，不用管。
 

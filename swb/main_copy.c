@@ -1,5 +1,5 @@
 //临时调用函数
-# include "functions_CreateUDN.c"
+# include "functions.c"
 
 #include "string.h"
 #include "stdio.h"
@@ -72,10 +72,10 @@ int main()     /* 主函数 */
                     printf("初始化成功\n");
                     system("pause");  //窗口暂停，显示输出结果，不然会直接清空结果
                     ck ='e';//设置退出该界面的标记
-                }
-                else
+                }else{
                     printf("初始化出错\n");
-              
+                    ck = 'c';//出错就继续循环初始化界面
+                }
                 break;
             case '2':
                 inputCSVfile = (char*)malloc(200*sizeof(char));
@@ -90,9 +90,10 @@ int main()     /* 主函数 */
                 {
                     printf("初始化成功\n");
                     ck ='e';//设置退出该界面的标记
-                }
-                else
+                }else{
                     printf("初始化出错\n");
+                    ck = 'c';//出错就继续循环初始化界面
+                }
                 system("pause");  //窗口暂停，显示输出结果，不然会直接清空结果
                 ck = 'e';//设置退出该界面的标记
                 break;
