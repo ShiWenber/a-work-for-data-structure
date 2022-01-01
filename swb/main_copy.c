@@ -70,6 +70,7 @@ int main()     /* 主函数 */
                 if(initialized)
                 {
                     printf("初始化成功\n");
+                    system("pause");  //窗口暂停，显示输出结果，不然会直接清空结果
                     ck ='e';//设置退出该界面的标记
                 }
                 else
@@ -92,6 +93,7 @@ int main()     /* 主函数 */
                 }
                 else
                     printf("初始化出错\n");
+                system("pause");  //窗口暂停，显示输出结果，不然会直接清空结果
                 ck = 'e';//设置退出该界面的标记
                 break;
         };
@@ -130,7 +132,7 @@ char Menu_Create()/*初始化菜单*/
     do
     {
         flag = 1;
-        system("cls");
+        system("cls"); //清空控制台
         narrate();
         printf("\t__   ___   _ _   _     _   _             _             _   _             \n");
         printf("\t\\ \\ / / \\ | | | | |   | \\ | | __ ___   _(_) __ _  __ _| |_(_) ___  _ __  \n");
