@@ -67,8 +67,3 @@ void output(int sight1,int sight2){    /*输出两点间的最短路径*/
 	printf("%d->%d最短路径为%ld",sight1,sight2,D[sight2]);
 
 } 
-
-int main(){
-    printf("hello world");
-    return 0;
-}
