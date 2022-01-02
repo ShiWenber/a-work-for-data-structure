@@ -14,11 +14,11 @@
 //输出地点列表
 void narrate()
 {
-	int sum = Building[0].number;
+	int sum = G.vex[0].number;
 	printf("总共有%d个地点\n", sum);
 	for (int i = 0; i < sum; i++)
 	{
-		printf("%d.%s\n", Building[i + 1].number, Building[i + 1].sight);
+		printf("%d.%s\n", G.vex[i + 1].number, G.vex[i + 1].sight);
 	}
 }
 // inputCSVfile表示输入的CSV文件的路径，全局变量G.arcs[][]存储输出的邻接矩阵,v顶点数能从文件中读出，a边数也能从文件中读出
@@ -72,12 +72,12 @@ int CreateUDN(char *inputCSVfile)
 				{
 					fscanf(fp1, "%[^,]%*c", str);
 				}
-				Building[k].sight = (char *)calloc(20, sizeof(char)); //单次只分配一个字符串空间，最终空间由sum_row确定，减少空间浪费
-				Building[k].sight = str;
-				Building[k].number = k;
-				printf("%s\n",Building[k].sight); //测试读取值
+				G.vex[k].sight = (char *)calloc(20, sizeof(char)); //单次只分配一个字符串空间，最终空间由sum_row确定，减少空间浪费
+				G.vex[k].sight = str;
+				G.vex[k].number = k;
+				printf("%s\n",G.vex[k].sight); //测试读取值
 			}
-			Building[0].number = k - 1; //记录建筑物总数
+			G.vex[0].number = k - 1; //记录建筑物总数
 			G.vexnum = k - 1; //结点总数，也就是建筑物总数
 			// buiding初始化完成
 			printf("\n");
@@ -130,11 +130,11 @@ int CreateUDN(char *inputCSVfile)
 				{
 					fscanf(fp1, "%[^,]%*c", str);
 				}
-				Building[k].description = (char *)calloc(400, sizeof(char)); //单次只分配一个字符串空间，最终空间由sum_row确定，减少空间浪费
-				Building[k].description = str;
-				printf("%s\n",Building[k].description); //测试读取值
+				G.vex[k].description = (char *)calloc(400, sizeof(char)); //单次只分配一个字符串空间，最终空间由sum_row确定，减少空间浪费
+				G.vex[k].description = str;
+				printf("%s\n",G.vex[k].description); //测试读取值
 			}
-			Building[0].number = k - 1; //记录建筑物总数
+			G.vex[0].number = k - 1; //记录建筑物总数
 			// buiding初始化完成
 			printf("\n");
 			///////////////////////////////
@@ -149,12 +149,12 @@ int CreateUDN(char *inputCSVfile)
 	printf("\n输入的邻接矩阵为：\n");
 	for (int i = 0; i < sum_row - 1 ; i++) //打印表头
 	{
-		printf("%-10s \t", Building[i].sight);
+		printf("%-10s \t", G.vex[i].sight);
 	}
 	printf("\n");
 	for (int i = 0; i < sum_row - 2; i++) //循环打印保存到数组中的数据,i表行，j表列，num表示数组元素总数，因为有表头的长度，需要对sum_row-1
 	{
-		printf("%-10s \t", Building[i + 1].sight); // building[]从1开始,空格在加\t能保证10位字符后加\t对齐，不然会不会填充到10位
+		printf("%-10s \t", G.vex[i + 1].sight); // building[]从1开始,空格在加\t能保证10位字符后加\t对齐，不然会不会填充到10位
 		for (j = 0; j < sum_row - 2; j++)
 		{
 			if (G.arcs[i][j].adj == Max)
@@ -182,7 +182,7 @@ void search()
         ck = SearchMenu(pt);    //在SearchMenu中已经写了对于传入pt的数值的合法性判定
 		// printf("%d",*pt);   // 测试pt中的值
 		if(ck!='e'){
-			printf("%s\n",Building[*pt].description);
+			printf("%s\n",G.vex[*pt].description);
 			system("pause");
 		}
     } while (ck != 'e');
@@ -241,7 +241,7 @@ char SearchMenu(int * pt)
 			{
 				flag = 0 ;
 				*pt = atoi(instr);
-				if( 1 <= *pt && *pt <= Building[0].number)
+				if( 1 <= *pt && *pt <= G.vex[0].number)
 				{
 				}
 				else{
@@ -255,3 +255,63 @@ char SearchMenu(int * pt)
 	} while (flag);
 	return c;
 }
+
+
+bool finish(bool *S,int n)          //检查该顶点是否已经纳入S[] 
+{
+    for(int i=0;i<n;i++)
+    {
+        if(!S[i])
+        return false;
+    }
+    return true; 
+}
+
+
+
+
+void ShortestPath(int num)//num为起点（V0）的编号
+{
+    //初始化数组，NUM为宏定义的最大结点个数
+    for(int i=0;i<NUM;i++)
+    D[i]=G.arcs[num][i].adj;
+    D[num]=0;
+    //初始化已访问数集S
+    bool S[NUM];
+
+    for(int i=0;i<NUM;i++)
+    S[i]=false;
+
+    S[num]=true;
+
+    int j;
+    int min;
+
+    while (!finish(S,NUM))
+    {   j=0;
+        min = Max;
+
+        for(int i=0;i<NUM;i++)        //比较各个路径，取最短路径结点纳入S 
+        {
+            if(S[i]) continue;
+
+            if(min>D[i]) 
+            {min=D[i];j=i;}     
+        }   
+        S[j]=true;      //纳入当前结点 
+
+        for(int i=0;i<NUM;i++)        //更新当前最短路径 
+        {
+            if(S[i]) continue;
+            if(D[i]>D[j]+G.arcs[j][i].adj)
+            D[i]=D[j]+G.arcs[j][i].adj;      
+        }
+
+
+    }
+
+}
+
+void output(int sight1,int sight2){    /*输出两点间的最短路径*/
+	printf("%d->%d最短路径为%ld",sight1,sight2,D[sight2]);
+} 

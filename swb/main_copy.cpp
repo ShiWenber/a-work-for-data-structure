@@ -1,5 +1,5 @@
 //临时调用函数
-# include "functions.c"
+# include "functions.cpp"
 
 #include "string.h"
 #include "stdio.h"
@@ -200,18 +200,18 @@ char Menu() /* 主菜单 */
 
 
 
-/*最短路径函数*/                  
-void ShortestPath(int num)
-{
-    printf("ShortestPath\n");
-} 
+// /*最短路径函数*/                  
+// void ShortestPath(int num)
+// {
+//     printf("ShortestPath\n");
+// } 
 
 
- /*输出函数*/       
-void output(int sight1, int sight2)
-{
-    printf("output\n");
-}
+//  /*输出函数*/       
+// void output(int sight1, int sight2)
+// {
+//     printf("output\n");
+// }
 
 
   /* 主菜单 */
