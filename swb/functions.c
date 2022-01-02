@@ -181,8 +181,8 @@ char SearchMenu(int * pt)
 		printf("\n\t\t\t .━━━━━━━━━━━━━━━━━━━━━━━━━━━. \n");
 		printf("\t\t\t┃ .-------------------------. ┃\n");
 		printf("\t\t\t┃ |                         | ┃\n");
-		printf("\t\t\t┃ |   输入编号进行查询      | ┃\n");
-		printf("\t\t\t┃ |   输e退出               | ┃\n");
+		printf("\t\t\t┃ |   输入编号查询信息      | ┃\n");
+		printf("\t\t\t┃ |   输入e退出             | ┃\n");
 		printf("\t\t\t┃ |                         | ┃\n");
 		printf("\t\t\t┃ '-------------------------' ┃\n");
 		printf("\t\t\t '━━━━━━━━━━━━━━━━━━━━━━━━━━━' \n");
