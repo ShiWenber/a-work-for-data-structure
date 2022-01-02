@@ -1,8 +1,7 @@
 void HaMiTonian(int n)   /* 哈密尔顿图的遍历 */
 {
    if(m>9)   return;   
-L: NextValue(m);   
-   NextValue(n);  /*将该顶点加入路径*/
+L: NextValue(m);    /*将该顶点加入路径*/
    if(x[n]==0)
     return;
    if(n==8&&G.arcs[0][x[9]-1].adj!=-1) /*找到一条哈密尔顿回路*/
