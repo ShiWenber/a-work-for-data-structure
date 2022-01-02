@@ -1,6 +1,7 @@
 void HaMiTonian(int n)   /* 哈密尔顿图的遍历 */
 {
-   while(n<=9){
+   if(m>9)   return;   
+L: NextValue(m);   
    NextValue(n);  /*将该顶点加入路径*/
    if(x[n]==0)
     return;
@@ -8,8 +9,7 @@ void HaMiTonian(int n)   /* 哈密尔顿图的遍历 */
     display();    /* 显示遍历结果 */
    else   /*路径未结束*/
     HaMiTonian(n+1);   /*继续遍历*/
-    }
-    return;
+    goto L;   
 }
 
 void NextValue(int m)  /*下一顶点*/
