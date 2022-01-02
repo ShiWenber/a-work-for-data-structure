@@ -1,0 +1,66 @@
+void search()  /* 查询景点信息 */
+{
+ int num;
+ int i;
+ char c;
+ char name[20];
+ do
+ {
+  system("cls");/*清屏*/
+  c=SearchMenu();
+  switch (c)
+  {
+  case '1':
+   system("cls");
+   narrate();
+   printf("/n/n/t/t请输入您要查找的景点编号：");
+   scanf("%d",&num);
+   for(i=0;i<NUM;i++)
+   {
+    if(num==G.vex[i].number)
+    {
+     printf("/n/n/t/t/t您要查找景点信息如下:");
+     printf("/n/n/t/t/t%-25s/n/n",G.vex[i].description);
+     printf("/n/t/t/t按任意键返回...");
+     getchar();
+     getchar();
+     break;
+    }
+   }
+   if(i==NUM)
+   {
+    printf("/n/n/t/t/t没有找到！");
+    printf("/n/n/t/t/t按任意键返回...");
+    getchar();
+    getchar();
+   }
+
+   break;
+  case '2':
+   system("cls");
+   narrate();
+   printf("/n/n/t/t请输入您要查找的景点名称：");
+   scanf("%s",name);
+   for(i=0;i<NUM;i++)
+   {
+    if(!strcmp(name,G.vex[i].sight))
+    {
+     printf("/n/n/t/t/t您要查找景点信息如下:");
+     printf("/n/n/t/t/t%-25s/n/n",G.vex[i].description);
+     printf("/n/t/t/t按任意键返回...");
+     getchar();
+     getchar();
+     break;
+    }
+   }
+   if(i==NUM)
+   {
+    printf("/n/n/t/t/t没有找到！");
+    printf("/n/n/t/t/t按任意键返回...");
+    getchar();
+    getchar();
+   }
+   break;
+  }
+ }while(c!='e');
+}
