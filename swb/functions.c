@@ -25,11 +25,12 @@ void narrate()
 int CreateUDN(char *inputCSVfile)
 {
 	int i, j;
-	int k = 0;
-	int count = 0; //统计文件中字符个数
-	int sum_row;   //统计文件中字符个数
+	int k = 0;   //统计矩阵中元素个数
+	int count = 0; //统计文件中行数
+	int sum_row;   //统计文件中总行数
 	int flag = 0;
 	int data = 0; //暂存数字
+	int arcnum = 0; //暂存边数
 	char *temp_str = (char *)malloc(20 * sizeof(char));
 	FILE *fp; //文件指针
 	FILE *fp1;
@@ -48,21 +49,22 @@ int CreateUDN(char *inputCSVfile)
 		if (flag == '\n') //如果为\n表示到行尾，便行数加1
 			count++;
 	}
-	sum_row = count; //邻接矩阵总行数
+	sum_row = ++count; //邻接矩阵总行数
+	G.vexnum = sum_row - 2; //有两行是信息栏不是矩阵
 	// printf("顶点个数为：%d", sum_row-1); // 测试打印文件行数，因为每行只有一个数，所以即统计文件中有多少个数
 	printf("\n");
 	VertexType sites;
 	char temp;
 	for (i = 0; i < sum_row; i++) //控制行数
 	{
-		if (i == 0) //处理第一行
+		if (i == 0) //处理第一行,读取sight
 		{
 			///////////////////////////读取第一行的字符，获得建筑物列表
-			int k; //用来记录建筑物总数
-			for (k = 0; k < sum_row; k++)
+			int k; //用来记录建筑物序号
+			for (k = 0; k < sum_row -1 ; k++)
 			{												   //从1开始为地名，0为(adj matrix)可以留下作为哨兵位置
 				char *str = (char *)malloc(sizeof(char) * 20); //暂存数组,由于指针的特性，如果不在此处每次都临时创建空间，会导致多个sight都指向同一个空间最终导致所有的地点名都相同
-				if (k == sum_row - 1)
+				if (k == sum_row - 2)
 				{
 					fscanf(fp1, "%s", str);
 				}
@@ -73,18 +75,18 @@ int CreateUDN(char *inputCSVfile)
 				Building[k].sight = (char *)calloc(20, sizeof(char)); //单次只分配一个字符串空间，最终空间由sum_row确定，减少空间浪费
 				Building[k].sight = str;
 				Building[k].number = k;
-
-				// printf("%s\n",Building[k].sight); //测试读取值
+				printf("%s\n",Building[k].sight); //测试读取值
 			}
 			Building[0].number = k - 1; //记录建筑物总数
+			G.vexnum = k - 1; //结点总数，也就是建筑物总数
 			// buiding初始化完成
 			printf("\n");
 			///////////////////////////////
 		}
-		else
+		else if(1 <= i && i <= sum_row - 2) //1->sum_row都是矩阵元素
 		{
 			//////////////////////////////读取非第一行的数字
-			for (j = 0; j < sum_row; j++) //控制列数 //因为这里都是方阵就直接用2*sum_row-1来表示其最大列数，如果是','就不记录，如果是数字就记录,从一开始是为了避开表头的字符串，也因此后面读入的时候都是存入j-1中
+			for (j = 0; j < sum_row - 1; j++) //控制列数 如果是','就不记录，如果是数字就记录,从一开始是为了避开表头的字符串，也因此后面读入的时候都是存入j-1中
 			{
 				if (j == 0) //第一个为表头，读掉其缓存，str作为暂存表头的变量
 				{
@@ -93,7 +95,7 @@ int CreateUDN(char *inputCSVfile)
 				}
 				else
 				{
-					if (j == sum_row - 1) //读到最后一个数字时改变读取方式，不加上，
+					if (j == sum_row - 2) //读到最后一个数字时改变读取方式，不加上，
 					{
 						fscanf(fp1, "%d", &data);
 					}
@@ -102,29 +104,58 @@ int CreateUDN(char *inputCSVfile)
 						fscanf(fp1, "%d,", &data);
 					}
 
-					if (data == -1)
+					if (data == -1)//用Max代表无穷大
 					{
 						data = Max;
-					}	 //用Max代表无穷大
-					k++; //记录已存的数字个数
+					}else{
+						arcnum++;   //记录已存的数字个数
+					} 
 					G.arcs[i - 1][j - 1].adj = data;
+					
 				}
 			}
 		}
+		else //处理最后一行,读取descript
+		{
+			///////////////////////////读取第一行的字符，获得建筑物列表
+			int k; //用来记录建筑物描述序号
+			for (k = 0; k < sum_row - 1; k++)
+			{												   //从1开始为地名，0为(建筑物信息)可以留下作为哨兵位置
+				char *str = (char *)malloc(sizeof(char) * 400); //暂存数组,由于指针的特性，如果不在此处每次都临时创建空间，会导致多个sight都指向同一个空间最终导致所有的地点名都相同
+				if (k == sum_row - 2)
+				{
+					fscanf(fp1, "%s", str);
+				}
+				else
+				{
+					fscanf(fp1, "%[^,]%*c", str);
+				}
+				Building[k].description = (char *)calloc(400, sizeof(char)); //单次只分配一个字符串空间，最终空间由sum_row确定，减少空间浪费
+				Building[k].description = str;
+				printf("%s\n",Building[k].description); //测试读取值
+			}
+			Building[0].number = k - 1; //记录建筑物总数
+			// buiding初始化完成
+			printf("\n");
+			///////////////////////////////
+		}
 	}
+	G.arcnum = arcnum;
+	//G初始化完毕
 
-	narrate(); //输出地点列表
-
+	// narrate(); //测试已经输入的地点列表
+	printf("图共有%d个结点,",G.vexnum);
+	printf("共有%d条边\n",G.arcnum);
 	printf("\n输入的邻接矩阵为：\n");
-	for (int i = 0; i < sum_row; i++) //打印表头
+	for (int i = 0; i < sum_row - 1 ; i++) //打印表头
 	{
 		printf("%-10s \t", Building[i].sight);
 	}
 	printf("\n");
-	for (int i = 0; i < sum_row - 1; i++) //循环打印保存到数组中的数据,i表行，j表列，num表示数组元素总数，因为有表头的长度，需要对sum_row-1
+	for (int i = 0; i < sum_row - 2; i++) //循环打印保存到数组中的数据,i表行，j表列，num表示数组元素总数，因为有表头的长度，需要对sum_row-1
 	{
 		printf("%-10s \t", Building[i + 1].sight); // building[]从1开始,空格在加\t能保证10位字符后加\t对齐，不然会不会填充到10位
-		for (j = 0; j < sum_row - 1; j++)
+		for (j = 0; j < sum_row - 2; j++)
 		{
 			if (G.arcs[i][j].adj == Max)
 			{
@@ -151,7 +182,7 @@ void search()
         ck = SearchMenu(pt);    //在SearchMenu中已经写了对于传入pt的数值的合法性判定
 		// printf("%d",*pt);   // 测试pt中的值
 		if(ck!='e'){
-			printf("%s\n",Building[*pt].sight);
+			printf("%s\n",Building[*pt].description);
 			system("pause");
 		}
     } while (ck != 'e');

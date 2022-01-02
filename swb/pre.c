@@ -29,7 +29,7 @@ void output(int sight1, int sight2); /*输出函数*/
 char Menu();                         /*---主菜单 */
 char InitiMenu();                  /*---初始化子菜单*/
 void search();                       /*---查询建筑信息 */
-char SearchMenu();                   /* 查询子菜单 */
+char SearchMenu();                   /*---查询子菜单 */
 void HaMiTonian(int input);                /* 哈密尔顿图的遍历 */
 void NextValue(int input);
 void display(); /* 显示遍历结果 */
