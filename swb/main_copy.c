@@ -223,17 +223,17 @@ void output(int sight1, int sight2)
 
 
  /* 查询建筑信息 */         
-void search()
-{
-    printf("Menu\n");
-}
+// void search()
+// {
+//     printf("Menu\n");
+// }
 
-   /* 查询子菜单 */                
-char SearchMenu()
-{
-    printf("SearchMenu\n");
-    return 'a';
-}       
+//    /* 查询子菜单 */                
+// char SearchMenu()
+// {
+//     printf("SearchMenu\n");
+//     return 'a';
+// }       
   /* 哈密尔顿图的遍历 */             
 void HaMiTonian(int input)
 {
