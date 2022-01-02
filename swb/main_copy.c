@@ -32,17 +32,8 @@
 // int x[NUM] = {0};              //原框架为int x[9] = {0}; 
 ///////////////////////////////////////////
 
-// void CreateUDN(char * inputCSVfile);//void CreateUDN(int v, int a);        /* 造图函数 */
-void narrate();                      /*说明函数*/
-void ShortestPath(int num);          /*最短路径函数*/
-void output(int sight1, int sight2); /*输出函数*/
-char Menu();                         /* 主菜单 */
-char Menu_Create();                  /*初始化菜单*/
-void search();                       /* 查询建筑信息 */
-char SearchMenu();                   /* 查询子菜单 */
-void HaMiTonian(int input);                /* 哈密尔顿图的遍历 */
-void NextValue(int input);
-void display(); /* 显示遍历结果 */
+
+
 
 
 
@@ -60,9 +51,9 @@ int main()     /* 主函数 */
     char tempC;//用于清空缓存的临时字符
     system("color fc");
     //初始化
-     do
+    do
     {
-        ck = Menu_Create();
+        ck = InitiMenu();
         switch (ck)
         {
             case '1':
@@ -70,12 +61,12 @@ int main()     /* 主函数 */
                 if(initialized)
                 {
                     printf("初始化成功\n");
-                    system("pause");  //窗口暂停，显示输出结果，不然会直接清空结果
                     ck ='e';//设置退出该界面的标记
                 }else{
                     printf("初始化出错\n");
                     ck = 'c';//出错就继续循环初始化界面
                 }
+                system("pause");  //窗口暂停，显示输出结果，不然进入mainmenu会直接清空结果
                 break;
             case '2':
                 inputCSVfile = (char*)malloc(200*sizeof(char));
@@ -94,13 +85,14 @@ int main()     /* 主函数 */
                     printf("初始化出错\n");
                     ck = 'c';//出错就继续循环初始化界面
                 }
-                system("pause");  //窗口暂停，显示输出结果，不然会直接清空结果
-                ck = 'e';//设置退出该界面的标记
+                system("pause");  //窗口暂停，显示输出结果，不然进入mainmenu会直接清空结果
                 break;
         };
     } while (ck != 'e');
     //初始化完毕
-   
+    if(initialized == 0){//如果初始化没有完成就退出整个程序
+        return 0;
+    }
     do
     {
         ck = Menu();
@@ -126,7 +118,7 @@ int main()     /* 主函数 */
     } while (ck != 'e');
 }
 
-char Menu_Create()/*初始化菜单*/
+char InitiMenu()/*初始化菜单*/
 {
     char c;
     int flag;
@@ -134,7 +126,6 @@ char Menu_Create()/*初始化菜单*/
     {
         flag = 1;
         system("cls"); //清空控制台
-        narrate();
         printf("\t__   ___   _ _   _     _   _             _             _   _             \n");
         printf("\t\\ \\ / / \\ | | | | |   | \\ | | __ ___   _(_) __ _  __ _| |_(_) ___  _ __  \n");
         printf("\t \\ V /|  \\| | | | |   |  \\| |/ _` \\ \\ / / |/ _` |/ _` | __| |/ _ \\| '_ \\ \n");
@@ -194,7 +185,7 @@ char Menu() /* 主菜单 */
         printf(  "\t\t\t┃ |                         | ┃\n");
         printf(  "\t\t\t┃ |   1.查询建筑路径        | ┃\n");
         printf(  "\t\t\t┃ |   2.查询建筑信息        | ┃\n");
-        printf(  "\t\t\t┃ |   2.选择出发点和目的地  | ┃\n");
+        printf(  "\t\t\t┃ |   3.选择出发点和目的地  | ┃\n");
         printf(  "\t\t\t┃ |   e.退出                | ┃\n");
         printf(  "\t\t\t┃ |                         | ┃\n");
         printf(  "\t\t\t┃ '-------------------------' ┃\n");
@@ -209,11 +200,6 @@ char Menu() /* 主菜单 */
 
 
 
- /*说明函数*/ 
-void narrate()
-{
-    printf("narrate\n");
-}   
 /*最短路径函数*/                  
 void ShortestPath(int num)
 {
@@ -240,8 +226,9 @@ void output(int sight1, int sight2)
 void search()
 {
     printf("Menu\n");
-}         
-  /* 查询子菜单 */                
+}
+
+   /* 查询子菜单 */                
 char SearchMenu()
 {
     printf("SearchMenu\n");
