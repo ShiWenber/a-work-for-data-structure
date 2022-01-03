@@ -282,7 +282,7 @@ void ShortestPath(int vs)//vs为起点
     {
         flag[i] = 0;              
         prev[i] = 0;              // 起点的前驱设为0； 
-        D[i] = G.arcs[vs][i];
+        D[i] = G.arcs[vs][i].adj;
     }
 
     // 初始化起点 
@@ -308,7 +308,7 @@ void ShortestPath(int vs)//vs为起点
         // 修正当前最短路径和前驱顶点
         for (j = 0; j < NUM; j++)
         {
-            tmp = (G.arcs==Max ? Max : (min + G.arcs[k][j])); // 防止溢出
+            tmp = (G.arcs[k][j].adj==Max ? Max : (min + G.arcs[k][j].adj)); // 防止溢出
             if (flag[j] == 0 && (tmp< D[j]))
             {
                 D[j] = tmp;
@@ -328,7 +328,7 @@ void output(int sight1,int sight2){//输出函数
 	int i = sight2;
 	int temp[NUM];
 	int j = 0;
-	printf("%d--->",sight1);
+	printf("%s--->",G.vex[sight1].sight);
 	for(;i>=0;){
 		if(prev[i]==0) break;
 		temp[j++]=prev[i];
@@ -337,11 +337,11 @@ void output(int sight1,int sight2){//输出函数
 	j--;
 	
 	for(;j>=0;j--){
-		printf("%d--->",temp[j]);
+		printf("%s--->",G.vex[temp[j]].sight); //  temp[j]
 	}
 	
 	
-	printf("%d",sight2);
+	printf("%s",G.vex[sight2].sight);
 
 	
 }
