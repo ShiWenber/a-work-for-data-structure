@@ -17,8 +17,7 @@ typedef struct
     int vexnum, arcnum;     /* 顶点数，边数 */
 } MGraph;                   /* 定义图的类型 */
 MGraph G;                   /* 把图定义为全局变量 */
- 
-int P[NUM][NUM];            /* */
+
 long int D[NUM];            /* 辅助变量存储最短路径长度 */
 int x[NUM] = {0};              //原框架为int x[9] = {0}; 
 

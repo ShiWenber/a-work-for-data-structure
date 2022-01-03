@@ -49,7 +49,10 @@ int main()     /* 主函数 */
     char * inputCSVfile; //输入文件的地址
     int initialized = 0; //记录是否完成初始化
     char tempC;//用于清空缓存的临时字符
-    system("color fc");
+    system("title YNU navigation");//执行dos命令title YNU navigation改变控制台窗口标签
+    system("color fc");//改变控制台背景色设置为fc
+    system("chcp 65001");//改变控制台为utf-8字符集,避免用户中文乱码出现
+    
     //初始化
     do
     {
