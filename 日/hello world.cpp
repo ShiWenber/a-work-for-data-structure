@@ -5,65 +5,80 @@
 # include<stdio.h>
 # include<stdlib.h>
 
-bool finish(bool *S,int n)          //检查该顶点是否已经纳入S[] 
+int prev[NUM];//宏定义前驱结点数组
+
+void ShortestPath(int vs)//vs为起点 
 {
-    for(int i=0;i<n;i++)
-    {
-        if(!S[i])
-        return false;
-    }
-    return true; 
-}
-
-
-
-
-void ShortestPath(int num)//num为起点（V0）的编号
-{
-    //初始化数组，NUM为宏定义的最大结点个数
-    for(int i=0;i<NUM;i++)
-    D[i]=P[num][i];
-    D[num]=0;
-    //初始化已访问数集S
-    bool S[NUM];
-
-    for(int i=0;i<NUM;i++)
-    S[i]=false;
-
-    S[num]=true;
-
-    int j;
+    int i,j,k;
     int min;
+    int tmp;
+    int flag[NUM];      // 顶点是否已经找到最短路径的判别数组flag 
 
-    while (!finish(S,NUM))
-    {   j=0;
-        min=MAX;
+    // 初始化
+    for (i = 0; i < NUM; i++)
+    {
+        flag[i] = 0;              
+        prev[i] = 0;              // 起点的前驱设为0； 
+        D[i] = G.arcs[vs][i];
+    }
 
-        for(int i=0;i<NUM;i++)        //比较各个路径，取最短路径结点纳入S 
+    // 初始化起点 
+    flag[vs] = 1;
+    D[vs] = 0;
+
+    // 遍历NUM-1次，找到NUM-1个顶点 
+    for (i = 1; i < NUM; i++)
+    {
+        // 寻找当前的最小的路径
+        min = Max;
+        for (j = 0; j < NUM; j++)
         {
-            if(S[i]) continue;
-
-            if(min>D[i]) 
-            {min=D[i];j=i;}     
-        }   
-
-        S[j]=true;      //纳入当前结点 
-
-        for(int i=0;i<NUM;i++)        //更新当前最短路径 
-        {
-            if(S[i]) continue;
-            if(D[i]>D[j]+P[j][i])
-            D[i]=D[j]+P[j][i];      
+            if (flag[j]==0 && D[j]<min)
+            {
+                min = D[j];
+                k = j;
+            }
         }
+        // 将该顶点纳入已获取最短路径的定点集 
+        flag[k] = 1;
 
-
+        // 修正当前最短路径和前驱顶点
+        for (j = 0; j < NUM; j++)
+        {
+            //tmp = (G.arcs==Max ? Max : (min + G.arcs[k][j])); // 防止溢出
+            if (flag[j] == 0 && (min + G.arcs[k][j]< D[j]))
+            {
+                D[j] = min + G.arcs[k][j];
+                prev[j] = k;
+            }
+        }
     }
 
 }
 
-void output(int sight1,int sight2){    /*输出两点间的最短路径*/
-    
-	
-	printf("%d->%d最短路径为%ld",sight1,sight2,D[sight2]);
 
-} 
+
+
+void output(int sight1,int sight2){//输出函数 
+	printf("最短路径长度为:%d\n最短路径为:",D[sight2]);
+	
+	int i = sight2;
+	int temp[NUM];
+	int j = 0;
+	printf("%d--->",sight1);
+	for(;i>=0;){
+		if(prev[i]==0) break;
+		temp[j++]=prev[i];
+		i = prev[i];
+	}
+	j--;
+	
+	for(;j>=0;j--){
+		printf("%d--->",temp[j]);
+	}
+	
+	
+	printf("%d",sight2);
+
+	
+}
