@@ -270,60 +270,81 @@ int finish(int *S,int n)          //检查该顶点是否已经纳入S[]
 
 
 
-void ShortestPath(int num)//num为起点（V0）的编号
+void ShortestPath(int vs)//vs为起点 
 {
-	num = num -1;
-    //初始化数组，NUM为宏定义的最大结点个数
-    int i1;
-    for(i1=0;i1<NUM;i1++)
-    D[i1]=G.arcs[num][i1].adj;
-    D[num]=0;
-    //初始化已访问数集S
-    int S[NUM];
-    int i2;
-    for(i2=0;i2<NUM;i2++)
-    S[i2]=0;
+    int i,j,k;
+    int min;
+    int tmp;
+    int flag[NUM];      // 顶点是否已经找到最短路径的判别数组flag 
 
-    S[num]=1;
+    // 初始化
+    for (i = 0; i < NUM; i++)
+    {
+        flag[i] = 0;              
+        prev[i] = 0;              // 起点的前驱设为0； 
+        D[i] = G.arcs[vs][i];
+    }
 
-    int j;int min;
+    // 初始化起点 
+    flag[vs] = 1;
+    D[vs] = 0;
 
-    while (!finish(S,NUM))
-    {   j=0;
-        min=Max;
-        int i3;
-        for(i3=0;i3<NUM;i3++)        //比较各个路径，取最短路径结点纳入S 
+    // 遍历NUM-1次，找到NUM-1个顶点 
+    for (i = 1; i < NUM; i++)
+    {
+        // 寻找当前的最小的路径
+        min = Max;
+        for (j = 0; j < NUM; j++)
         {
-        	if(i3==num) continue;
-            if(S[i3]) continue;
-
-            if(min>D[i3]){ 
-			j=i3;
-			min = D[i3];
-		  }     
-        }   
-
-        S[j]=1;      //纳入当前结点 
-        int i4;
-        for(i4=0;i4<NUM;i4++)        //更新当前最短路径 
-        {
-        	if(i4==num) continue;
-            if(S[i4]) continue;
-            if(D[i4]>D[j]+G.arcs[j][i4].adj)
-            D[i4]=D[j]+G.arcs[j][i4].adj;      
+            if (flag[j]==0 && D[j]<min)
+            {
+                min = D[j];
+                k = j;
+            }
         }
+        // 将该顶点纳入已获取最短路径的定点集 
+        flag[k] = 1;
 
-
+        // 修正当前最短路径和前驱顶点
+        for (j = 0; j < NUM; j++)
+        {
+            tmp = (G.arcs==Max ? Max : (min + G.arcs[k][j])); // 防止溢出
+            if (flag[j] == 0 && (tmp< D[j]))
+            {
+                D[j] = tmp;
+                prev[j] = k;
+            }
+        }
     }
 
 }
 
-void output(int sight1,int sight2){    /*输出两点间的最短路径*/
-    
-	
-	printf("%s->%s\t最短路径为%d",G.vex[sight1].sight,G.vex[sight2].sight,D[sight2]);
 
-} 
+
+
+void output(int sight1,int sight2){//输出函数 
+	printf("最短路径长度为:%d\n最短路径为:",D[sight2]);
+	
+	int i = sight2;
+	int temp[NUM];
+	int j = 0;
+	printf("%d--->",sight1);
+	for(;i>=0;){
+		if(prev[i]==0) break;
+		temp[j++]=prev[i];
+		i = prev[i];
+	}
+	j--;
+	
+	for(;j>=0;j--){
+		printf("%d--->",temp[j]);
+	}
+	
+	
+	printf("%d",sight2);
+
+	
+}
 
 
 void HaMiTonian(int n)   /* 哈密尔顿图的遍历 */
