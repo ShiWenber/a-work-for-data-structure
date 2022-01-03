@@ -20,7 +20,7 @@ MGraph G;                   /* 把图定义为全局变量 */
 
 long int D[NUM];            /* 辅助变量存储最短路径长度 */
 int x[NUM] = {0};              //原框架为int x[9] = {0}; 
-
+int prev[NUM];//宏定义前驱结点数组
 int CreateUDN(char * inputCSVfile);//void CreateUDN(int v, int a);        /* ---造图函数 */
 void narrate();                      /*---说明函数*/
 void ShortestPath(int num);          /*最短路径函数*/
