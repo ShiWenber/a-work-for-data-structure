@@ -105,9 +105,9 @@ int main()     /* 主函数 */
             case '1':
                 system("cls");
                 narrate();
-                printf("\n\n\t\t\t 请选择起点建筑（1～10）：");
+                printf("\n\n\t\t\t 请选择起点建筑（1～%d）：",G.vexnum);
                 scanf("%d", &v0);
-                printf("\t\t\t 请选择终点建筑（1～10）：");
+                printf("\t\t\t 请选择终点建筑（1～%d）：",G.vexnum);
                 scanf("%d", &v1);
                 ShortestPath(v0); /* 计算两个建筑之间的最短路径 */
                 output(v0, v1);   /* 输出结果 */
