@@ -3,12 +3,14 @@
 typedef struct ArcCell
 {
     int adj; /* 相邻接的建筑之间的路程 */
+    struct ArcCell *next;   /////////*原框架无此*/
 } ArcCell;   /* 定义边的类型 */
 typedef struct VertexType
 {
     int number;        /* 建筑编号 */
     char *sight;       /* 建筑名称 */
     char *description; /* 建筑描述 */
+    ArcCell *head;        /////////*原框架无此*/
 } VertexType;          /* 定义顶点的类型 */
 typedef struct
 {
@@ -17,7 +19,6 @@ typedef struct
     int vexnum, arcnum;     /* 顶点数，边数 */
 } MGraph;                   /* 定义图的类型 */
 MGraph G;                   /* 把图定义为全局变量 */
-
 long int D[NUM];            /* 辅助变量存储最短路径长度 */
 int x[NUM] = {0};              //原框架为int x[9] = {0}; 
 int prev[NUM];//宏定义前驱结点数组

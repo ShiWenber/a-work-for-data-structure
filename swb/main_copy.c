@@ -93,6 +93,8 @@ int main()     /* 主函数 */
         };
     } while (ck != 'e');
     //初始化完毕
+    MGraph * pt;
+    pt = &G;
     if(initialized == 0){//如果初始化没有完成就退出整个程序
         return 0;
     }
@@ -119,8 +121,9 @@ int main()     /* 主函数 */
                 search();
                 break;
             case '3':
-                scanf("%d",&start);
-                HaMiTonian(start);
+                // scanf("%d",&start);
+                // HaMiTonian(start);
+               FindAllPath(pt); 
         };
         system("pause");
     } while (ck != 'e');
