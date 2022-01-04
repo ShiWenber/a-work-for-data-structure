@@ -268,88 +268,6 @@ char SearchMenu(int * pt)
 //     return 1; 
 // }
 
-
-
-// void ShortestPath(int vs)//vs为起点 
-// {
-// 	vs = vs-1;
-//     int i,j,k;
-//     int min;
-//     int tmp;
-//     int flag[NUM];      // 顶点是否已经找到最短路径的判别数组flag 
-
-//     // 初始化
-//     for (i = 0; i < NUM; i++)
-//     {
-//         flag[i] = 0;              
-//         prev[i] = 0;              // 起点的前驱设为0； 
-//         D[i] = G.arcs[vs][i].adj;
-//     }
-
-//     // 初始化起点 
-//     flag[vs] = 1;
-//     D[vs] = 0;
-
-//     // 遍历NUM-1次，找到NUM-1个顶点 
-//     for (i = 1; i < NUM; i++)
-//     {
-//         // 寻找当前的最小的路径
-//         min = Max;
-//         for (j = 0; j < NUM; j++)
-//         {
-//             if (flag[j]==0 && D[j]<min)
-//             {
-//                 min = D[j];
-//                 k = j;
-//             }
-//         }
-//         // 将该顶点纳入已获取最短路径的定点集 
-//         flag[k] = 1;
-
-//         // 修正当前最短路径和前驱顶点
-//         for (j = 0; j < NUM; j++)
-//         {
-//             tmp = (min + G.arcs[k][j].adj); 
-//             if (flag[j] == 0 && (tmp< D[j]))
-//             {
-//                 D[j] = tmp;
-//                 prev[j] = k;
-//             }
-//         }
-//     }
-
-// }
-
-
-// void output(int sight1,int sight2){//输出函数 
-// 	sight1 = sight1 -1;
-// 	sight2 = sight2 -1;
-// 	printf("最短路径长度为:%d\n最短路径为:",D[sight2]);	 //D是输出运算结果，不能加1
-// 	int i = sight2;
-// 	int temp[NUM];
-// 	int j = 0;
-// 	printf("%s--->",G.vex[sight1+1].sight);   //仅仅在输出G.vex中的地名时要加1
-// 	for(;i>=0;){
-// 		if(prev[i]==0) break;
-// 		temp[j++]=prev[i];
-// 		i = prev[i];
-// 	}
-// 	j--;
-	
-// 	for(;j > 0;j--){
-
-// 		printf("%s--->",G.vex[j+1].sight);//仅仅在输出G.vex中的地名时要加1
-// 	}
-	
-	
-// 	printf("%s",G.vex[sight2+1].sight);//仅仅在输出G.vex中的地名时要加1
-
-	
-	
-	
-// }
-
-
 void ShortestPath(int vs)//vs为起点 
 {
 	vs = vs - 1;
@@ -398,7 +316,6 @@ void ShortestPath(int vs)//vs为起点
     }
 }
 
-
 void output(int sight1,int sight2){//输出函数 
 	sight1 = sight1 -1 ;
 	sight2 = sight2 -1 ;
@@ -421,10 +338,6 @@ void output(int sight1,int sight2){//输出函数
 	
 	
 	printf("%s",G.vex[sight2+1].sight);
-
-	
-	
-	
 }
 
 
@@ -433,8 +346,39 @@ void output(int sight1,int sight2){//输出函数
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////图遍历
 typedef struct Stack{
-	int data[Max];
+	int * data[10];    //定义栈的数组
 	int top;
 }SeqStack;
 SeqStack* InitStack()
@@ -455,7 +399,7 @@ int Empty(SeqStack *S)
 }
 int Push(SeqStack *S, int data)
 {
-	if(S->top == Max - 1)
+	if(S->top == G.vexnum - 1)
 	{
 		printf("栈满\n"); //测试输出
 		exit(0);
@@ -477,56 +421,27 @@ int Top(SeqStack *S)
 	return S->data[S->top];
 	return 0;
 }
-// typedef struct ArcCell
-// {
-//     int adj;/* 相邻接的建筑之间的路程 */
-//     struct ArcCell *next;
-// } ArcCell;   /* 定义边的类型 */
-// typedef struct VertexType
-// {
-//     int number;        /* 建筑编号 */
-//     char *sight;       /* 建筑名称 */
-//     char *description; /* 建筑描述 */
-//     ArcCell *head;
-// } VertexType;  
-
-//根据输入字符选择结点，无必要，这里直接用编号就行
-// int SelectIndex(MGraph *G, int input)
-// {
-// 	int i;
-// 	if(strlen(str) == 1)
-// 	{
-// 		for(i = 1; i <= G->vexnum; i++)
-// 		{
-// 			if(G->vex[i].number== str[0])
-// 			{
-// 				return i;
-// 			}
-
-// 		}
-// 	}
-// 	else
-// 	{
-// 		for(i = 1; i <= G->vexnum; i++)
-// 		{
-// 		    if(strcmp(str, G->vex[i].sight) == 0)
-// 			{
-// 				return i;
-// 			}
-// 		}
-// 	}
-// 	return 0;
-// }
-
-
 ////////////////////////////////////////////////////
-void FindAllPath(MGraph *G)
+int visited(int k, SeqStack *S)
 {
+	for(int i = S->top ;i >= 0; i--)
+	{
+		if( k == S->data[i] )
+		return 1;
+	}
+	return 0;
+}
+
+void FindAllPath(MGraph G)
+{
+	int key;
 	int start,end;
 	printf("\t\t\t输入起点编号:");
 	scanf("%d", &start);
+	start = start -1;
 	printf("\t\t\t输入终点编号:");
 	scanf("%d",&end);
+	end = end -1;
 	// int starIndex = SelectIndex(G, star);
 	// int endIndex = SelectIndex(G, end);
 	// if(!starIndex || !endIndex)
@@ -534,24 +449,39 @@ void FindAllPath(MGraph *G)
 	//  	printf("输入地点不存在\n");
 	//  	return;
 	// }
-	if(1 <=start&& start <= G->vexnum && 1<= end && end <= G->vexnum)
+	if(0 <=start&& start <= G.vexnum-1 && 0<= end && end <= G.vexnum-1)
 	{}else{
 	 	printf("输入地点不存在\n");
 	 	return;
 	}
-	int i, w, v, instack[Max + 1];
+	int i, w, v, instack[10 + 1];
 	v = start;
 	w = -1;
-	for(i = 1; i <= G->vexnum; i++) //清空栈
+	for(i = 1; i <= G.vexnum; i++) //清空
 	instack[i] = 0;
+
 	SeqStack *S = InitStack();
-	Push(S, start);
+	Push(S, start);  //start已经遍历过
+
 	instack[v] = 1;
 	ArcCell *p;
 	while(!Empty(S))
 	{
-		v = Top(S);
-		p = G->vex[v].head;
+		v = Top(S);  //将S顶给v，就是将最近遍历过的点给v
+		for(int k =0; k < G.vexnum ; k++ )
+		{
+			if(G.arcs[v][k].adj != Max && !visited(k,S)) //没遍历的第一个结点
+			{
+				v = k;
+				key = 1;
+				break;
+			}else{
+				key = 0;  //表示没有遍历到结点，需要退栈
+			}
+		}
+		Push(S,start);
+
+		p = G.vex[v].head;
 		while(p != NULL)
 		{
 
@@ -581,12 +511,12 @@ void FindAllPath(MGraph *G)
 				printf("【");
 				for(i = 0; i <= S->top; i++ )
 				{
-					printf("%s ", G->vex[S->data[i]].sight);
+					printf("%s ", G.vex[S->data[i]].sight);
 				}
 				printf("\b】\n");
 				break;
 			}
-			p = G->vex[w].head;
+			p = G.vex[w].head;
 			w = -1;
 		}
 		w = Pop(S);

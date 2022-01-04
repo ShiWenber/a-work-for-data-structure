@@ -93,8 +93,8 @@ int main()     /* 主函数 */
         };
     } while (ck != 'e');
     //初始化完毕
-    MGraph * pt;
-    pt = &G;
+    // MGraph * pt;
+    // pt = &G;
     if(initialized == 0){//如果初始化没有完成就退出整个程序
         return 0;
     }
@@ -105,6 +105,13 @@ int main()     /* 主函数 */
         switch (ck)
         {
             case '1':
+                // scanf("%d",&start);
+                // HaMiTonian(start);
+               FindAllPath(G); 
+            case '2':
+                search();
+                break;
+            case '3':
                 system("cls");
                 narrate();
                 printf("\n\n\t\t\t 请选择起点建筑（1～%d）：",G.vexnum);
@@ -117,13 +124,6 @@ int main()     /* 主函数 */
                 getchar();
                 getchar();
                 break;
-            case '2':
-                search();
-                break;
-            case '3':
-                // scanf("%d",&start);
-                // HaMiTonian(start);
-               FindAllPath(pt); 
         };
         system("pause");
     } while (ck != 'e');
