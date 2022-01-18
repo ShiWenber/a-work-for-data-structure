@@ -376,150 +376,131 @@ void output(int sight1,int sight2){//输出函数
 
 
 
-///////图遍历
-typedef struct Stack{
-	int * data[10];    //定义栈的数组
-	int top;
-}SeqStack;
-SeqStack* InitStack()
-{
-	SeqStack *S;
-	S = (SeqStack*)malloc(sizeof(SeqStack));
-	if(!S)
-	exit(1);
-	S->top = -1;
-	return S;
-}
-int Empty(SeqStack *S)
-{
-	if(S->top == -1)
-	return 1;
-	else
+// ///////图遍历
+// typedef struct Stack{
+// 	int data[10];    //定义栈的数组
+// 	int top;
+// }SeqStack;
+// SeqStack* InitStack()
+// {
+// 	SeqStack *S;
+// 	S = (SeqStack*)malloc(sizeof(SeqStack));
+// 	if(!S)
+// 	exit(1);
+// 	S->top = -1;
+// 	return S;
+// }
+// int Empty(SeqStack *S)
+// {
+// 	if(S->top == -1)
+// 	return 1;
+// 	else
+// 	return 0;
+// }
+// int Push(SeqStack *S, int data)
+// {
+// 	if(S->top == G.vexnum - 1)
+// 	{
+// 		printf("栈满\n"); //测试输出
+// 		exit(0);
+// 	}
+// 	S->data[++S->top] = data;
+// 	return 1;
+// }
+// int Pop(SeqStack *S)
+// {
+// 	if(!Empty(S))
+// 	{
+// 		return S->data[S->top--];
+// 	}
+// 	return 0;
+// }
+// int Top(SeqStack *S)
+// {
+// 	if(!Empty(S))
+// 	return S->data[S->top];
+// 	return 0;
+// }
+// ////////////////////////////////////////////////////
+// int visited(int k, SeqStack *S)
+// {
+// 	for(int i = S->top ;i >= 0; i--)
+// 	{
+// 		if( k == S->data[i] )
+// 		return 1;
+// 	}
+// 	return 0;
+// }
+
+// void Pathoutput(int *Sq){
+// 	int i=0;
+// 	for(i=0 ; i<G.vexnum-1 ; i++){
+// 		printf("%s--->",G.vex[i+1].sight);
+// 	}
+// 	printf("%s\n",G.vex[i+1].sight);
+// }
+
+// void FindAllPath(MGraph G)
+// {
+// 	int key;
+// 	int start,end;
+// 	int sqe = 0; //存序号
+// 	printf("\t\t\t输入起点编号:");
+// 	scanf("%d", &start);
+// 	start = start -1;
+// 	int i, w, v, Seqence[10];  //Seqence用来存结果序列
+// 	v = start;
+// 	for(i = 0; i < G.vexnum; i++) //清空
+// 	Seqence[i] = -1;
+
+// 	SeqStack *S = InitStack();
+// 	Push(S, start);  //start已经遍历过
+
+// 	Seqence[sqe++] = v;
+// 	ArcCell *p;
+// 	while(!Empty(S))
+// 	{
+// 		v = Top(S);  //将S顶给v，就是将最近遍历过的点给v
+// 		for(int k =0; k < G.vexnum ; k++ )
+// 		{
+// 			if(G.arcs[v][k].adj != Max && !visited(k,S)) //没遍历的第一个结点
+// 			{
+// 				v = k;
+// 				key = 1;
+// 				break;
+// 			}else{
+// 				key = 0;  //表示没有遍历到结点，需要退栈
+// 			}
+// 		}
+// 		if(key)
+// 		{	
+// 			Push(S,v);
+// 			Seqence[sqe++] = v;
+// 			if(sqe == G.vexnum){  //序列已满证明此路可行
+// 				Pathoutput(Seqence);
+// 				system("pause");
+// 				return;
+// 			}
+// 		}else{
+// 			// Seqence[++sqe] = Top(S);
+// 			v = Pop(S);
+// 			sqe = v;
+// 			// Seqence[sqe++] =  
+// 		}
+// 		// w = Pop(S);
+// 	}
+// 	Pathoutput(Seqence);
+// 	system("pause");
+// 		return;
+// }
+
+int  DFS(MGraph G, int v){
+	if(v==0)return 0;
+	printf("%s-->",G.vex[v+1].sight);
+	visited[v] = 1;
+	for(int w=0;w<G.vexnum;w++){
+		if((G.arcs[v][w].adj!=0)&&(!visited[w]))
+			DFS(G,w);
+	}
 	return 0;
-}
-int Push(SeqStack *S, int data)
-{
-	if(S->top == G.vexnum - 1)
-	{
-		printf("栈满\n"); //测试输出
-		exit(0);
-	}
-	S->data[++S->top] = data;
-	return 1;
-}
-int Pop(SeqStack *S)
-{
-	if(!Empty(S))
-	{
-		return S->data[S->top--];
-	}
-	return 0;
-}
-int Top(SeqStack *S)
-{
-	if(!Empty(S))
-	return S->data[S->top];
-	return 0;
-}
-////////////////////////////////////////////////////
-int visited(int k, SeqStack *S)
-{
-	for(int i = S->top ;i >= 0; i--)
-	{
-		if( k == S->data[i] )
-		return 1;
-	}
-	return 0;
-}
-
-void FindAllPath(MGraph G)
-{
-	int key;
-	int start,end;
-	printf("\t\t\t输入起点编号:");
-	scanf("%d", &start);
-	start = start -1;
-	printf("\t\t\t输入终点编号:");
-	scanf("%d",&end);
-	end = end -1;
-	// int starIndex = SelectIndex(G, star);
-	// int endIndex = SelectIndex(G, end);
-	// if(!starIndex || !endIndex)
-	// {
-	//  	printf("输入地点不存在\n");
-	//  	return;
-	// }
-	if(0 <=start&& start <= G.vexnum-1 && 0<= end && end <= G.vexnum-1)
-	{}else{
-	 	printf("输入地点不存在\n");
-	 	return;
-	}
-	int i, w, v, instack[10 + 1];
-	v = start;
-	w = -1;
-	for(i = 1; i <= G.vexnum; i++) //清空
-	instack[i] = 0;
-
-	SeqStack *S = InitStack();
-	Push(S, start);  //start已经遍历过
-
-	instack[v] = 1;
-	ArcCell *p;
-	while(!Empty(S))
-	{
-		v = Top(S);  //将S顶给v，就是将最近遍历过的点给v
-		for(int k =0; k < G.vexnum ; k++ )
-		{
-			if(G.arcs[v][k].adj != Max && !visited(k,S)) //没遍历的第一个结点
-			{
-				v = k;
-				key = 1;
-				break;
-			}else{
-				key = 0;  //表示没有遍历到结点，需要退栈
-			}
-		}
-		Push(S,start);
-
-		p = G.vex[v].head;
-		while(p != NULL)
-		{
-
-			if(w != -1)
-			{
-				while(p != NULL && p->adj != w)
-				p = p->next;
-				if(p != NULL)
-				{
-					p = p->next;
-					while(p != NULL && instack[p->adj] == 1)
-					p = p->next;
-				}
-			}
-			else
-			{
-				while(p != NULL && instack[p->adj] == 1)
-				p = p->next;
-			}
-			if(p == NULL)
-			break;
-			w = p->adj;
-			Push(S, w);
-			instack[w] = 1;
-			if(w == end)
-			{
-				printf("【");
-				for(i = 0; i <= S->top; i++ )
-				{
-					printf("%s ", G.vex[S->data[i]].sight);
-				}
-				printf("\b】\n");
-				break;
-			}
-			p = G.vex[w].head;
-			w = -1;
-		}
-		w = Pop(S);
-		instack[w] = 0;
-	}
 }

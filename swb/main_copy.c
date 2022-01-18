@@ -107,7 +107,10 @@ int main()     /* 主函数 */
             case '1':
                 // scanf("%d",&start);
                 // HaMiTonian(start);
-               FindAllPath(G); 
+                scanf("%d",&start);
+                printf("%s-->",G.vex[start].sight);
+                DFS(G,start);
+                system("pause");
             case '2':
                 search();
                 break;
